@@ -1,37 +1,66 @@
 package co.com.sofka;
 
 public class TennisGame3 implements TennisGame {
-    
-    private int p2;
-    private int p1;
-    private String p1N;
-    private String p2N;
+    private int playerScore1;
+    private int playerScore2;
+    private String playerName1;
+    private String playerName2;
 
-    public TennisGame3(String p1N, String p2N) {
-        this.p1N = p1N;
-        this.p2N = p2N;
+    public TennisGame3(String playerName1, String playerName2) {
+        this.playerName1 = playerName1;
+        this.playerName2 = playerName2;
     }
 
     public String getScore() {
-        String s;
-        if (p1 < 4 && p2 < 4 && !(p1 + p2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
-            s = p[p1];
-            return (p1 == p2) ? s + "-All" : s + "-" + p[p2];
-        } else {
-            if (p1 == p2)
-                return "Deuce";
-            s = p1 > p2 ? p1N : p2N;
-            return ((p1-p2)*(p1-p2) == 1) ? "Advantage " + s : "Win for " + s;
+        if (isNormalSet()) {
+            String[] scoreResult = new String[]{"Love", "Fifteen", "Thirty", "Forty"};
+            return getResponseScore(scoreResult[playerScore1], scoreResult);
         }
-    }
-    
-    public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            this.p1 += 1;
-        else
-            this.p2 += 1;
-        
+
+        if (arePlayersTied())
+            return "Deuce";
+
+        return getPlayersInDeuceScore();
     }
 
+    private boolean isNormalSet() {
+        return !isThereAnyPlayerAboutToWin() && !arePlayersInDeuce();
+    }
+
+    private boolean isThereAnyPlayerAboutToWin() {
+        return playerScore1 >= 4 || playerScore2 >= 4;
+    }
+
+    private String getPlayersInDeuceScore() {
+        String player = getForwardedPlayer();
+        return arePlayersStillInDeuce() ? "Advantage ".concat(player) : "Win for ".concat(player);
+    }
+
+    private String getForwardedPlayer() {
+        return playerScore1 > playerScore2 ? playerName1 : playerName2;
+    }
+
+    private String getResponseScore(String score, String[] scoreResult) {
+        return arePlayersTied() ? score.concat("-All") : score.concat("-") + scoreResult[playerScore2];
+    }
+
+    private boolean arePlayersTied() {
+        return playerScore1 == playerScore2;
+    }
+
+    private boolean arePlayersStillInDeuce() {
+        return (playerScore1 - playerScore2)*(playerScore1 - playerScore2) == 1;
+    }
+
+    private boolean arePlayersInDeuce() {
+        return playerScore1 + playerScore2 == 6;
+    }
+
+    public void wonPoint(String playerName) {
+        if (playerName.equalsIgnoreCase(playerName1))
+            this.playerScore1 += 1;
+
+        if(playerName.equalsIgnoreCase(playerName2))
+            this.playerScore2 += 1;
+    }
 }

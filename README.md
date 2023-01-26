@@ -38,8 +38,11 @@ Solo necesitas informar el puntaje del juego actual. Los conjuntos y las coincid
 
 ### Preguntas para discutir después
 - ¿Cómo se sintió trabajar con pruebas tan rápidas y completas?
+  - Requiere analizar y lleva tiempo reestructurar el código.
+  - Intenté mejorar el código quitando variables abreviadas, y distribuyendo el código en pequeñas funciones eliminando los bloques else en los ifs.
 
 - ¿Cometiste errores al refactorizar que fueron detectados por las pruebas?
+  - Si lo cual me llevaba a revisar nuevamente el código para ir corrigiendo errores.
 
 - Si utilizó una herramienta para registrar sus ejecuciones de prueba, revísela. ¿Podrías haber tomado pasos más pequeños? ¿Cometió menos errores de refactorización?
 
@@ -48,3 +51,4 @@ Solo necesitas informar el puntaje del juego actual. Los conjuntos y las coincid
 - ¿Qué le dirías a tu colega si hubiera escrito este código?
 
 - ¿Qué le dirías a tu jefe sobre el valor de este trabajo de refactorización? ¿Hubo más razones para hacerlo más allá de la hora extra facturable?
+  - Mejora la facilidad de la busqueda de errores revisando pequeños bloques de código.
