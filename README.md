@@ -3,7 +3,7 @@ Imagine que trabaja para una empresa de consultoría, y uno de sus colegas ha es
 
 
 
-Hay tres versiones de esta kata refactorizadora, cada una con sus propios olores y desafíos de diseño. Le sugiero que comience con el primero, con la clase "TennisGame1". El conjunto de pruebas proporcionado es bastante completo y rápido de ejecutar. No debería necesitar cambiar las pruebas, solo ejecutarlas a menudo mientras refactoriza.
+Hay tres versiones de esta kata refactorizadora, cada una con sus propios olores y desafíos de diseño. Le sugiero que comience con el primero, con la clase "co.com.sofka.TennisGame1". El conjunto de pruebas proporcionado es bastante completo y rápido de ejecutar. No debería necesitar cambiar las pruebas, solo ejecutarlas a menudo mientras refactoriza.
 
 
 
@@ -16,7 +16,7 @@ El tenis tiene un sistema de puntuación bastante peculiar, y para los recién l
 
 
 
-Su tarea es escribir una clase "TennisGame" que contenga la lógica que genera el puntaje correcto como una cadena para mostrar en el marcador. Cuando un jugador anota un punto, se activa un método para llamar a su clase que le permite saber quién anotó el punto. Más tarde, recibirá una llamada "score()" desde el marcador preguntando qué debe mostrar. Este método debería devolver una cadena con la puntuación actual.
+Su tarea es escribir una clase "co.com.sofka.TennisGame" que contenga la lógica que genera el puntaje correcto como una cadena para mostrar en el marcador. Cuando un jugador anota un punto, se activa un método para llamar a su clase que le permite saber quién anotó el punto. Más tarde, recibirá una llamada "score()" desde el marcador preguntando qué debe mostrar. Este método debería devolver una cadena con la puntuación actual.
 
 
 
