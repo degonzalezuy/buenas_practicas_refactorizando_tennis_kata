@@ -1,8 +1,8 @@
 
 public class TennisGame1 implements TennisGame {
     
-    private int m_score1 = 0;
-    private int m_score2 = 0;
+    private int playerScore1 = 0;
+    private int playerScore2 = 0;
     private String player1Name;
     private String player2Name;
 
@@ -12,65 +12,101 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            m_score1 += 1;
-        else
-            m_score2 += 1;
+        if (playerName.equalsIgnoreCase(player1Name))
+            playerScore1 += 1;
+
+        if (playerName.equalsIgnoreCase(player2Name))
+            playerScore2 += 1;
     }
 
-    public String getScore() {
+    public String getScore(){
+        if(arePlayersTied())
+            return getResponseTiedScore();
+        if(isThereAnyPlayerAboutToWin())
+            return decideWinner();
+
+        return getPreFinalResult();
+    }
+
+    private String decideWinner(){
+        String score;
+        int minusResult = getDiffScore();
+        score = getPlayerWithAdvantage(minusResult);
+        if(minusResult >= 2) score = "Win for ".concat(player1Name);
+        if(minusResult <= -2) score = "Win for ".concat(player2Name);
+        return score;
+    }
+
+    private String getPlayerWithAdvantage(int minusResult)
+    {
+        if(minusResult == 1)
+            return "Advantage ".concat(player1Name);
+        return "Advantage ".concat(player2Name);
+    }
+    private String getPreFinalResult(){
+        int tempScore = 0;
         String score = "";
-        int tempScore=0;
-        if (m_score1==m_score2)
+        for(int i = 1; i < 3; i++ )
         {
-            switch (m_score1)
-            {
-                case 0:
-                        score = "Love-All";
-                    break;
-                case 1:
-                        score = "Fifteen-All";
-                    break;
-                case 2:
-                        score = "Thirty-All";
-                    break;
-                default:
-                        score = "Deuce";
-                    break;
-                
-            }
-        }
-        else if (m_score1>=4 || m_score2>=4)
-        {
-            int minusResult = m_score1-m_score2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = m_score1;
-                else { score+="-"; tempScore = m_score2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
+            if(i == 2)
+                score = score.concat("-");
+
+            tempScore = getPlayerTempScore(i);
+            score = getTempResponseScore(score, tempScore);
         }
         return score;
     }
+    private int getPlayerTempScore(int player){
+        if(player == 1)
+            return playerScore1;
+
+        return playerScore2;
+    }
+
+
+
+    private int getDiffScore(){
+        return playerScore1-playerScore2;
+    }
+    private boolean arePlayersTied(){
+        return playerScore1 == playerScore2;
+    }
+
+    private boolean isThereAnyPlayerAboutToWin(){
+        return playerScore1 >= 4 || playerScore2 >=4;
+    }
+
+
+    private String getResponseTiedScore(){
+        switch (playerScore1)
+        {
+            case 0:
+                return "Love-All";
+            case 1:
+                return "Fifteen-All";
+            case 2:
+                return "Thirty-All";
+            default:
+                return "Deuce";
+        }
+    }
+
+    private String getTempResponseScore(String score, int tempScore) {
+        switch(tempScore)
+        {
+            case 0:
+                score = score.concat("Love");
+                break;
+            case 1:
+                score = score.concat("Fifteen");
+                break;
+            case 2:
+                score = score.concat("Thirty");
+                break;
+            case 3:
+                score = score.concat("Forty");
+        }
+        return score;
+    }
+
 }
